@@ -1,21 +1,21 @@
 const express = require('express')
-const server = require('server');
-const { get, socket } = server.router;
-const { render } = server.reply;
+const app = express()
+const server = require('http').Server(app)
+const users ={}
 
-// Update everyone with the current user count
-const updateCounter = ctx => {
-  ctx.io.emit('count', Object.keys(ctx.io.sockets.sockets).length);
-};
+const io = require('socket.io')(3000)
 
-// Send the new message to everyone
-const sendMessage = ctx => {
-  ctx.io.emit('message', ctx.data);
-};
-
-server([
-  get('/', ctx => render('public/index.html')),
-  socket('connect', updateCounter),
-  socket('disconnect', updateCounter),
-  socket('message', sendMessage)
-]);
+io.on('connection', socket => {
+  socket.on('new-user', name => {
+    users[socket.id] = name
+    socket.broadcast.emit('user-connected', name)
+  })
+  socket.on('send-chat-message', message =>{
+    console.log(message)
+    socket.broadcast.emit('chat-message', { message: message, name:users[socket.id] })
+  })
+  socket.on('disconnect', () => {
+    socket.broadcast.emit('user-disconnected', users[socket.id])
+    delete users[socket.id]
+  })
+});

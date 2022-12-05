@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="app.js"></script>
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <meta charset="utf-8">
+    <title>Chat Box</title>
+  </head>
+  <body>
+  <main>
+    <div class="box">
+      <section id="chat" class="chat">
+      </section>
+      <div id="users" class="users">
+      </div>
+      <div class="text">
+      <form id="chatform">
+        <input id="msg" placeholder="type a message" ></input>
+        <button type="submit" name="sub">Send</button>
+      </form>
+      </div>
+    </div>
+  </main>
+  </body>
+</html>
