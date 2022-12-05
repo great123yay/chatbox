@@ -37,13 +37,15 @@ main{
 .text{
   grid-column-start: 1;
   grid-column-end: 4;
-  grid-row-start: 7;
-  grid-row-end: 7;
+  grid-row: 7;
   background-color: red;
   display: flex;
 }
-textarea{
+form{
   flex: 1;
-  resize: none;
+}
+input{
   padding: 15px;
+  width: 80%;
+  border: none;
 }
